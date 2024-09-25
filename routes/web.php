@@ -4,6 +4,7 @@ use App\Http\Livewire\Chat\Index;
 use App\Http\Livewire\Chat\Chat;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PatientController;
@@ -31,10 +32,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 // Admin dashboard route
 Route::middleware(['auth', 'role:admin'])->get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+// Admin content route
+Route::middleware(['auth', 'role:admin'])->get('/admin/createcontent', [ContentController::class, 'create'])->name('admin.content');
+Route::get('/content/create', [ContentController::class, 'create'])->name('content.create');
+Route::post('/content/store', [ContentController::class, 'store'])->name('content.store');
 
 // Therapist dashboard route
 Route::middleware(['auth', 'role:therapist'])->get('/therapist/dashboard', [TherapistController::class, 'index'])->name('therapist.dashboard');
-
+// Therapist dashtboard content route
+Route::middleware(['auth', 'role:therapist'])->get('/therapist/dashboard', [TherapistController::class, 'index'])->name('therapist.dashboard');
 // Patient dashboard route
 Route::middleware(['auth', 'role:patient'])->get('/patient/dashboard', [PatientController::class, 'index'])->name('patients.dashboard');
 // Patient view appointment

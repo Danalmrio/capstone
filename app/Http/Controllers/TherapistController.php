@@ -12,7 +12,8 @@ class TherapistController extends Controller
 {
     public function index()
     {
-        return view('therapist.dashboard');
+    $contents = Content::all(); // Fetch all content
+    return view('therapist.dashboard', compact('contents')); // Pass to view
     }
 
     public function appIndex()
